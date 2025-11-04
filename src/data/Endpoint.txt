@@ -1,0 +1,538 @@
+DC1-APIC-01# show endpoint ip 10.204.244.60
+show endpoint ip 10.204.244.62
+show endpoint ip 10.204.244.63
+show endpoint ip 10.204.244.64
+show endpoint ip 10.204.244.65
+show endpoint ip 10.204.244.66
+show endpoint ip 10.204.244.67
+show endpoint ip 10.204.244.68
+show endpoint ip 10.204.244.69
+show endpoint ip 10.204.244.70
+show endpoint ip 10.204.244.71
+show endpoint ip 10.204.244.72
+show endpoint ip 10.204.244.44
+show endpoint ip 10.204.244.45
+show endpoint ip 10.204.244.46
+show endpoint ip 10.204.244.49
+show endpoint ip 10.204.244.50
+show endpoint ip 10.204.244.51
+show endpoint ip 10.204.244.52
+show endpoint ip 10.204.244.59
+show endpoint ip 10.204.244.60
+show endpoint ip 10.204.244.43
+show endpoint ip 10.204.244.56
+show endpoint ip 10.204.244.57
+show endpoint ip 10.204.244.78
+show endpoint ip 10.204.244.79
+show endpoint ip 10.204.244.80
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8D:20:76  10.204.244.60                             learned       331 332     vpc 331-332-VPC-9-10-PG         vlan-247         not-appli
+cable     2025-09-11T14:46:18.
+
+          237+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Total Dynamic Endpoints: 0
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:2D:C2  10.204.244.63                             learned       325 326     vpc 325-326-VPC-27-28-PG        vlan-247         not-appli
+cable     2025-10-07T15:49:33.
+
+          726+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:2C:A2  10.204.244.64                             learned       325 326     vpc 325-326-VPC-27-28-PG        vlan-247         not-appli
+cable     2025-10-07T16:06:17.
+
+          823+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:30:DA  10.204.244.65                             learned       321 322     vpc 321-322-VPC-27-28-PG        vlan-247         not-appli
+cable     2025-10-16T18:10:28.
+
+          614+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:2F:72  10.204.244.66                             learned       321 322     vpc 321-322-VPC-27-28-PG        vlan-247         not-appli
+cable     2025-10-16T19:18:34.
+
+          592+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8D:95:88  10.204.244.67                             learned       321 322     vpc 321-322-VPC-27-28-PG        vlan-247         not-appli
+cable     2025-10-07T00:27:34.
+
+          870+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Total Dynamic Endpoints: 0
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Total Dynamic Endpoints: 0
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Total Dynamic Endpoints: 0
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8D:8B:20  10.204.244.71                             learned       321 322     vpc 321-322-VPC-25-26-PG        vlan-247         not-appli
+cable     2025-10-07T01:46:05.
+
+          645+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8D:A0:80  10.204.244.72                             learned       321 322     vpc 321-322-VPC-25-26-PG        vlan-247         not-appli
+cable     2025-10-07T02:32:38.
+
+          542+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:1B:32  10.204.244.44                             learned       321 322     vpc 321-322-VPC-25-26-PG        vlan-247         not-appli
+cable     2025-07-16T00:26:58.
+
+          294+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:24:8C  10.204.244.45                             learned       321 322     vpc 321-322-VPC-25-26-PG        vlan-247         not-appli
+cable     2025-07-02T23:24:03.
+
+          285+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:14:72  10.204.244.46                             learned       321 322     vpc 321-322-VPC-27-28-PG        vlan-247         not-appli
+cable     2025-07-16T00:12:30.
+
+          706+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8B:B3:8A  10.204.244.49                             learned       331 332     vpc 331-332-VPC-19-20-PG        vlan-247         not-appli
+cable     2025-06-12T17:55:56.
+
+          532+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8A:25:FE  10.204.244.50                             learned       331 332     vpc 331-332-VPC-21-22-PG        vlan-247         not-appli
+cable     2025-06-16T19:16:13.
+
+          926+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8B:1D:A2  10.204.244.51                             learned       331 332     vpc 331-332-VPC-15-16-PG        vlan-247         not-appli
+cable     2025-07-21T17:40:20.
+
+          317+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8B:0F:92  10.204.244.52                             learned       331 332     vpc 331-332-VPC-17-18-PG        vlan-247         not-appli
+cable     2025-07-18T15:26:33.
+
+          547+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8A:2D:84  10.204.244.59                             learned       331 332     vpc 331-332-VPC-9-10-PG         vlan-247         not-appli
+cable     2025-10-06T23:06:24.
+
+          219+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8D:20:76  10.204.244.60                             learned       331 332     vpc 331-332-VPC-9-10-PG         vlan-247         not-appli
+cable     2025-09-11T14:46:18.
+
+          237+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8E:3F:D4  10.204.244.43                             learned       331 332     vpc 331-332-VPC-21-22-PG        vlan-247         not-appli
+cable     2025-07-09T22:28:11.
+
+          449+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8A:3B:28  10.204.244.56                             learned       331 332     vpc 331-332-VPC-13-14-PG        vlan-247         not-appli
+cable     2025-09-11T14:47:15.
+
+          341+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:8B:1D:EA  10.204.244.57                             learned       331 332     vpc 331-332-VPC-15-16-PG        vlan-247         not-appli
+cable     2025-09-11T14:55:23.
+
+          236+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:67:93:B0  10.204.244.78                             learned       321 322     vpc 321-322-VPC-5-6-PG          vlan-247         not-appli
+cable     2025-10-30T20:43:03.
+
+          952+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:67:8C:BA  10.204.244.79                             learned       321 322     vpc 321-322-VPC-5-6-PG          vlan-247         not-appli
+cable     2025-10-28T22:15:55.
+
+          871+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
+Legends:
+(P):Primary VLAN
+(S):Secondary VLAN
+
+
+Dynamic Endpoints:
+Tenant      : MDR-SF-DC
+Application : MDR-SF
+AEPg        : EPG-VLAN247-10.204.244.0-23
+
+ End Point MAC      IP Address                                Source        Node        Interface                       Encap            Multicast
+ Address  Create TS
+ -----------------  ----------------------------------------  ------------  ----------  ------------------------------  ---------------  ---------
+------    --------------------
+ F4:C7:AA:67:86:C0  10.204.244.80                             learned       321 322     vpc 321-322-VPC-7-8-PG          vlan-247         not-appli
+cable     2025-10-30T18:44:22.
+
+          936+07:00
+
+Total Dynamic Endpoints: 1
+Total Static Endpoints: 0
