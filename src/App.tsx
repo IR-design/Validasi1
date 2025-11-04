@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Network, Download, AlertCircle, Plus, Trash2 } from 'lucide-react';
+import { useState, useRef } from 'react';
+import { Network, Download, AlertCircle, Plus, Trash2, Upload } from 'lucide-react';
 import ValidationTable from './components/ValidationTable';
 import MatrixTable from './components/MatrixTable';
 import {
@@ -45,6 +45,50 @@ function App() {
 
   const updateEntry = (id: string, field: 'endpointInput' | 'epgName', value: string) => {
     setEntries(entries.map(e => e.id === id ? { ...e, [field]: value } : e));
+  };
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.txt')) {
+      setError('Please upload a .txt file');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+
+      if (lines.length === 0) {
+        setError('The uploaded file is empty');
+        return;
+      }
+
+      const newEntries = lines.map((epgName, index) => ({
+        id: `${Date.now()}-${index}`,
+        endpointInput: '',
+        epgName: epgName,
+        results: null,
+        endpointData: null
+      }));
+
+      setEntries(newEntries);
+      setError(null);
+    };
+
+    reader.onerror = () => {
+      setError('Failed to read file');
+    };
+
+    reader.readAsText(file);
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const handleValidate = () => {
@@ -231,13 +275,29 @@ function App() {
                 <h3 className="text-lg font-semibold text-slate-900">
                   Endpoint Validations
                 </h3>
-                <button
-                  onClick={addEntry}
-                  className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors"
-                >
-                  <Plus className="w-4 h-4" />
-                  Add Entry
-                </button>
+                <div className="flex gap-2">
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".txt"
+                    onChange={handleFileUpload}
+                    className="hidden"
+                  />
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+                  >
+                    <Upload className="w-4 h-4" />
+                    Upload EPG List
+                  </button>
+                  <button
+                    onClick={addEntry}
+                    className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium rounded-lg transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add Entry
+                  </button>
+                </div>
               </div>
 
               <div className="space-y-4">
