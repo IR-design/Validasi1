@@ -49,12 +49,12 @@ function App() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEpgFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     if (!file.name.endsWith('.txt')) {
-      setError('Please upload a .txt file');
+      setError('Please upload a .txt file for EPG');
       return;
     }
 
@@ -64,7 +64,7 @@ function App() {
       const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
 
       if (lines.length === 0) {
-        setError('The uploaded file is empty');
+        setError('The uploaded EPG file is empty');
         return;
       }
 
@@ -81,13 +81,59 @@ function App() {
     };
 
     reader.onerror = () => {
-      setError('Failed to read file');
+      setError('Failed to read EPG file');
     };
 
     reader.readAsText(file);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
+    }
+  };
+
+  const endpointFileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleEndpointFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.txt')) {
+      setError('Please upload a .txt file for Endpoint data');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target?.result as string;
+      const blocks = text.split('\n\n').filter(block => block.trim().length > 0);
+
+      if (blocks.length === 0) {
+        setError('The uploaded Endpoint file is empty');
+        return;
+      }
+
+      if (blocks.length !== entries.length) {
+        setError(`File has ${blocks.length} endpoint blocks but you have ${entries.length} entries. They must match.`);
+        return;
+      }
+
+      const updatedEntries = entries.map((entry, index) => ({
+        ...entry,
+        endpointInput: blocks[index].trim()
+      }));
+
+      setEntries(updatedEntries);
+      setError(null);
+    };
+
+    reader.onerror = () => {
+      setError('Failed to read Endpoint file');
+    };
+
+    reader.readAsText(file);
+
+    if (endpointFileInputRef.current) {
+      endpointFileInputRef.current.value = '';
     }
   };
 
@@ -280,7 +326,14 @@ function App() {
                     ref={fileInputRef}
                     type="file"
                     accept=".txt"
-                    onChange={handleFileUpload}
+                    onChange={handleEpgFileUpload}
+                    className="hidden"
+                  />
+                  <input
+                    ref={endpointFileInputRef}
+                    type="file"
+                    accept=".txt"
+                    onChange={handleEndpointFileUpload}
                     className="hidden"
                   />
                   <button
@@ -288,7 +341,14 @@ function App() {
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
                   >
                     <Upload className="w-4 h-4" />
-                    Upload EPG List
+                    Upload EPG
+                  </button>
+                  <button
+                    onClick={() => endpointFileInputRef.current?.click()}
+                    className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors"
+                  >
+                    <Upload className="w-4 h-4" />
+                    Upload Endpoints
                   </button>
                   <button
                     onClick={addEntry}
