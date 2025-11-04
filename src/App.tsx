@@ -2,15 +2,18 @@ import { useState, useRef } from 'react';
 import { Network, Download, AlertCircle, Plus, Trash2, Upload } from 'lucide-react';
 import ValidationTable from './components/ValidationTable';
 import MatrixTable from './components/MatrixTable';
+import EndpointTable from './components/EndpointTable';
 import {
   parseEndpointOutput,
   parseMoqueryOutput,
   validateVlanAllowances,
   generateCSV,
   extractVlanFromEpg,
+  parseAllEndpoints,
   type ValidationResult,
   type EndpointData,
-  type PathAttachment
+  type PathAttachment,
+  type ParsedEndpoint
 } from './utils/apicParser';
 import { downloadCSV } from './utils/csvExport';
 
@@ -28,6 +31,7 @@ function App() {
     { id: '1', endpointInput: '', epgName: '', results: null, endpointData: null }
   ]);
   const [pathAttachments, setPathAttachments] = useState<PathAttachment[]>([]);
+  const [allEndpoints, setAllEndpoints] = useState<ParsedEndpoint[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const addEntry = () => {
@@ -147,6 +151,16 @@ function App() {
     }
 
     setPathAttachments(parsedMoquery);
+
+    // Parse all endpoints from all entries
+    const allParsedEndpoints: ParsedEndpoint[] = [];
+    entries.forEach(entry => {
+      if (entry.endpointInput.trim()) {
+        const parsed = parseAllEndpoints(entry.endpointInput);
+        allParsedEndpoints.push(...parsed);
+      }
+    });
+    setAllEndpoints(allParsedEndpoints);
 
     const updatedEntries = entries.map(entry => {
       if (!entry.endpointInput.trim()) {
@@ -462,6 +476,10 @@ function App() {
               }))}
             pathAttachments={pathAttachments}
           />
+        )}
+
+        {allEndpoints.length > 0 && (
+          <EndpointTable endpoints={allEndpoints} />
         )}
       </div>
     </div>
