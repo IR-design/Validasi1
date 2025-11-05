@@ -2,18 +2,15 @@ import { useState, useRef } from 'react';
 import { Network, Download, AlertCircle, Plus, Trash2, Upload } from 'lucide-react';
 import ValidationTable from './components/ValidationTable';
 import MatrixTable from './components/MatrixTable';
-import EndpointTable from './components/EndpointTable';
 import {
   parseEndpointOutput,
   parseMoqueryOutput,
   validateVlanAllowances,
   generateCSV,
   extractVlanFromEpg,
-  parseAllEndpoints,
   type ValidationResult,
   type EndpointData,
-  type PathAttachment,
-  type ParsedEndpoint
+  type PathAttachment
 } from './utils/apicParser';
 import { downloadCSV } from './utils/csvExport';
 
@@ -31,7 +28,6 @@ function App() {
     { id: '1', endpointInput: '', epgName: '', results: null, endpointData: null }
   ]);
   const [pathAttachments, setPathAttachments] = useState<PathAttachment[]>([]);
-  const [allEndpoints, setAllEndpoints] = useState<ParsedEndpoint[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const addEntry = () => {
@@ -53,12 +49,12 @@ function App() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleEpgFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     if (!file.name.endsWith('.txt')) {
-      setError('Please upload a .txt file for EPG');
+      setError('Please upload a .txt file');
       return;
     }
 
@@ -68,7 +64,7 @@ function App() {
       const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
 
       if (lines.length === 0) {
-        setError('The uploaded EPG file is empty');
+        setError('The uploaded file is empty');
         return;
       }
 
@@ -85,59 +81,13 @@ function App() {
     };
 
     reader.onerror = () => {
-      setError('Failed to read EPG file');
+      setError('Failed to read file');
     };
 
     reader.readAsText(file);
 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
-    }
-  };
-
-  const endpointFileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleEndpointFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    if (!file.name.endsWith('.txt')) {
-      setError('Please upload a .txt file for Endpoint data');
-      return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const text = e.target?.result as string;
-      const blocks = text.split('\n\n').filter(block => block.trim().length > 0);
-
-      if (blocks.length === 0) {
-        setError('The uploaded Endpoint file is empty');
-        return;
-      }
-
-      if (blocks.length !== entries.length) {
-        setError(`File has ${blocks.length} endpoint blocks but you have ${entries.length} entries. They must match.`);
-        return;
-      }
-
-      const updatedEntries = entries.map((entry, index) => ({
-        ...entry,
-        endpointInput: blocks[index].trim()
-      }));
-
-      setEntries(updatedEntries);
-      setError(null);
-    };
-
-    reader.onerror = () => {
-      setError('Failed to read Endpoint file');
-    };
-
-    reader.readAsText(file);
-
-    if (endpointFileInputRef.current) {
-      endpointFileInputRef.current.value = '';
     }
   };
 
@@ -151,16 +101,6 @@ function App() {
     }
 
     setPathAttachments(parsedMoquery);
-
-    // Parse all endpoints from all entries
-    const allParsedEndpoints: ParsedEndpoint[] = [];
-    entries.forEach(entry => {
-      if (entry.endpointInput.trim()) {
-        const parsed = parseAllEndpoints(entry.endpointInput);
-        allParsedEndpoints.push(...parsed);
-      }
-    });
-    setAllEndpoints(allParsedEndpoints);
 
     const updatedEntries = entries.map(entry => {
       if (!entry.endpointInput.trim()) {
@@ -340,14 +280,7 @@ function App() {
                     ref={fileInputRef}
                     type="file"
                     accept=".txt"
-                    onChange={handleEpgFileUpload}
-                    className="hidden"
-                  />
-                  <input
-                    ref={endpointFileInputRef}
-                    type="file"
-                    accept=".txt"
-                    onChange={handleEndpointFileUpload}
+                    onChange={handleFileUpload}
                     className="hidden"
                   />
                   <button
@@ -355,14 +288,7 @@ function App() {
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
                   >
                     <Upload className="w-4 h-4" />
-                    Upload EPG
-                  </button>
-                  <button
-                    onClick={() => endpointFileInputRef.current?.click()}
-                    className="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-colors"
-                  >
-                    <Upload className="w-4 h-4" />
-                    Upload Endpoints
+                    Upload EPG List
                   </button>
                   <button
                     onClick={addEntry}
@@ -476,10 +402,6 @@ function App() {
               }))}
             pathAttachments={pathAttachments}
           />
-        )}
-
-        {allEndpoints.length > 0 && (
-          <EndpointTable endpoints={allEndpoints} />
         )}
       </div>
     </div>
