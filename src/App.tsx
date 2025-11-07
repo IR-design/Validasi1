@@ -153,18 +153,17 @@ function App() {
         if (notAllowed.length > 0) {
           const vlanNumber = extractVlanFromEpg(entry.epgName) || entry.endpointData!.vlan;
 
-          // Format EPG: use as-is if it already starts with "EPG-", otherwise add "EPG-" prefix
-          let epgFormatted = entry.epgName;
+          let epgFormatted = entry.epgName.trim();
           if (!epgFormatted.toUpperCase().startsWith('EPG-')) {
-            epgFormatted = `EPG-${entry.epgName}`;
+            epgFormatted = `EPG-${epgFormatted}`;
           }
 
-          notAllowed.forEach(result => {
-            // Generate full path in moquery format
-            let fullPath = '';
-            let pod = 'pod-2'; // default fallback
+          epgFormatted = epgFormatted.replace(/[\r\n\t]/g, '').trim();
 
-            // Determine pod based on node number range
+          notAllowed.forEach(result => {
+            let fullPath = '';
+            let pod = 'pod-2';
+
             const determinePodByNode = (nodeNum: string): string => {
               const num = parseInt(nodeNum);
               if (num >= 300 && num < 400) {
@@ -172,10 +171,9 @@ function App() {
               } else if (num >= 400 && num < 500) {
                 return 'pod-2';
               }
-              return 'pod-2'; // fallback
+              return 'pod-2';
             };
 
-            // First, try to find exact match in moquery data
             const normalizedPathName = result.path.trim().replace(/[\[\]]/g, '').toLowerCase();
             let matchedAttachment: typeof pathAttachments[0] | null = null;
 
@@ -183,19 +181,16 @@ function App() {
               const attachmentPath = attachment.path.trim().replace(/[\[\]]/g, '').toLowerCase();
               if (attachmentPath === normalizedPathName) {
                 matchedAttachment = attachment;
-                fullPath = attachment.fullPath;
+                fullPath = attachment.fullPath.replace(/[\r\n\t]/g, '').trim();
                 break;
               }
             }
 
-            // If exact match found, use it
             if (matchedAttachment) {
               allRows.push(`${vlanNumber},${epgFormatted},${fullPath}`);
               return;
             }
 
-            // Otherwise, construct the path
-            // Check if it's a VPC path (format: XXX-YYY-VPC-...)
             const vpcMatch = result.path.match(/(\d+)-(\d+)-VPC/);
             if (vpcMatch) {
               const node1 = vpcMatch[1];
@@ -203,20 +198,16 @@ function App() {
               pod = determinePodByNode(node1);
               fullPath = `${pod}/protpaths-${node1}-${node2}/pathep-[${result.path}]`;
             } else {
-              // Single path - could be "eth1/5" format
               const singleMatch = result.path.match(/^(\d+)[-\/]/);
               if (singleMatch) {
-                // Path like "303/eth1/5" or "303-something"
                 const node = singleMatch[1];
                 pod = determinePodByNode(node);
                 fullPath = `${pod}/paths-${node}/pathep-[${result.path}]`;
               } else if (entry.endpointData?.pathsWithNodes?.has(result.path)) {
-                // Path like "eth1/5" - get node from pathsWithNodes map
                 const node = entry.endpointData.pathsWithNodes.get(result.path)!;
                 pod = determinePodByNode(node);
                 fullPath = `${pod}/paths-${node}/pathep-[${result.path}]`;
               } else {
-                // Fallback - can't determine node
                 fullPath = `${pod}/paths-XXX/pathep-[${result.path}]`;
               }
             }

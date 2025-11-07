@@ -1,5 +1,7 @@
 export function downloadCSV(content: string, filename: string): void {
-  const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' });
+  const encoder = new TextEncoder();
+  const uint8array = encoder.encode(content);
+  const blob = new Blob([uint8array], { type: 'text/csv;charset=utf-8' });
   const link = document.createElement('a');
   const url = URL.createObjectURL(blob);
 
