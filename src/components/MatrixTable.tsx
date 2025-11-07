@@ -1,3 +1,6 @@
+import { useRef } from 'react';
+import { Download } from 'lucide-react';
+import html2canvas from 'html2canvas';
 import type { ValidationResult, PathAttachment, EndpointData } from '../utils/apicParser';
 
 interface MatrixTableProps {
@@ -17,6 +20,8 @@ interface PathRow {
 }
 
 export default function MatrixTable({ allEntries, pathAttachments }: MatrixTableProps) {
+  const matrixRef = useRef<HTMLDivElement>(null);
+
   // Collect all unique VLANs
   const allVlans = Array.from(new Set(allEntries.map(e => e.vlan))).sort((a, b) => parseInt(a) - parseInt(b));
 
@@ -69,13 +74,50 @@ export default function MatrixTable({ allEntries, pathAttachments }: MatrixTable
     return null;
   }
 
+  const handleDownloadJPG = async () => {
+    if (!matrixRef.current) return;
+
+    try {
+      const canvas = await html2canvas(matrixRef.current, {
+        scale: 2,
+        backgroundColor: '#ffffff',
+        logging: false,
+        windowWidth: matrixRef.current.scrollWidth,
+        windowHeight: matrixRef.current.scrollHeight
+      });
+
+      canvas.toBlob((blob) => {
+        if (blob) {
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          const filename = `vlan-matrix-${new Date().toISOString().split('T')[0]}.jpg`;
+          link.href = url;
+          link.download = filename;
+          link.click();
+          URL.revokeObjectURL(url);
+        }
+      }, 'image/jpeg', 0.95);
+    } catch (error) {
+      console.error('Failed to generate image:', error);
+    }
+  };
+
   return (
     <div className="mt-6 bg-white rounded-xl shadow-sm border border-slate-200 p-8">
-      <h2 className="text-xl font-bold text-slate-900 mb-4">
-        VLAN Validation Matrix
-      </h2>
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-bold text-slate-900">
+          VLAN Validation Matrix
+        </h2>
+        <button
+          onClick={handleDownloadJPG}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors"
+        >
+          <Download className="w-4 h-4" />
+          Download JPG
+        </button>
+      </div>
 
-      <div className="overflow-x-auto">
+      <div ref={matrixRef} className="overflow-x-auto">
         <table className="w-full border-collapse text-xs">
           <thead>
             <tr>

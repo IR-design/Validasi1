@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { Network, Download, AlertCircle, Plus, Trash2, Upload } from 'lucide-react';
+import { Network, Download, AlertCircle, Plus, Trash2, Upload, Copy } from 'lucide-react';
 import ValidationTable from './components/ValidationTable';
 import MatrixTable from './components/MatrixTable';
 import {
@@ -20,12 +20,14 @@ interface ValidationEntry {
   epgName: string;
   results: ValidationResult[] | null;
   endpointData: EndpointData | null;
+  useSharedEndpoint?: boolean;
 }
 
 function App() {
   const [moqueryInput, setMoqueryInput] = useState('');
+  const [sharedEndpointInput, setSharedEndpointInput] = useState('');
   const [entries, setEntries] = useState<ValidationEntry[]>([
-    { id: '1', endpointInput: '', epgName: '', results: null, endpointData: null }
+    { id: '1', endpointInput: '', epgName: '', results: null, endpointData: null, useSharedEndpoint: false }
   ]);
   const [pathAttachments, setPathAttachments] = useState<PathAttachment[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -33,7 +35,7 @@ function App() {
   const addEntry = () => {
     setEntries([
       ...entries,
-      { id: Date.now().toString(), endpointInput: '', epgName: '', results: null, endpointData: null }
+      { id: Date.now().toString(), endpointInput: '', epgName: '', results: null, endpointData: null, useSharedEndpoint: false }
     ]);
   };
 
@@ -73,7 +75,8 @@ function App() {
         endpointInput: '',
         epgName: epgName,
         results: null,
-        endpointData: null
+        endpointData: null,
+        useSharedEndpoint: false
       }));
 
       setEntries(newEntries);
@@ -103,11 +106,13 @@ function App() {
     setPathAttachments(parsedMoquery);
 
     const updatedEntries = entries.map(entry => {
-      if (!entry.endpointInput.trim()) {
+      const endpointInput = entry.useSharedEndpoint ? sharedEndpointInput : entry.endpointInput;
+
+      if (!endpointInput.trim()) {
         return entry;
       }
 
-      const parsedEndpoint = parseEndpointOutput(entry.endpointInput);
+      const parsedEndpoint = parseEndpointOutput(endpointInput);
       if (!parsedEndpoint) {
         return entry;
       }
@@ -232,6 +237,21 @@ function App() {
     downloadCSV(csv, filename);
   };
 
+  const toggleUseSharedEndpoint = (id: string) => {
+    setEntries(entries.map(e =>
+      e.id === id ? { ...e, useSharedEndpoint: !e.useSharedEndpoint } : e
+    ));
+  };
+
+  const applySharedEndpointToAll = () => {
+    if (!sharedEndpointInput.trim()) {
+      setError('Please enter shared endpoint data first.');
+      return;
+    }
+    setEntries(entries.map(e => ({ ...e, useSharedEndpoint: true })));
+    setError(null);
+  };
+
   const totalNotAllowed = entries.reduce((sum, entry) => {
     return sum + (entry.results?.filter(r => r.status === 'not_allowed').length || 0);
   }, 0);
@@ -267,6 +287,30 @@ function App() {
                 onChange={(e) => setMoqueryInput(e.target.value)}
                 placeholder='Paste output from: moquery -c fvRsPathAtt -f &#39;fv.RsPathAtt.encap=="vlan-XXX"&#39; | grep dn'
                 className="w-full h-48 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent resize-none font-mono text-sm"
+              />
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-slate-700">
+                  Shared Endpoint Data (Optional)
+                  <span className="text-slate-500 font-normal ml-2">
+                    (Use for all EPG names)
+                  </span>
+                </label>
+                <button
+                  onClick={applySharedEndpointToAll}
+                  className="flex items-center gap-2 px-3 py-1 bg-slate-600 hover:bg-slate-700 text-white text-xs font-medium rounded transition-colors"
+                >
+                  <Copy className="w-3 h-3" />
+                  Use for All
+                </button>
+              </div>
+              <textarea
+                value={sharedEndpointInput}
+                onChange={(e) => setSharedEndpointInput(e.target.value)}
+                placeholder="Paste output from: show endpoints ip x.x.x.x - This will be used for all EPG names"
+                className="w-full h-32 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent resize-none font-mono text-sm"
               />
             </div>
 
@@ -322,15 +366,30 @@ function App() {
 
                     <div className="grid md:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">
-                          Endpoint Data
-                        </label>
+                        <div className="flex items-center justify-between mb-2">
+                          <label className="block text-sm font-medium text-slate-700">
+                            Endpoint Data
+                          </label>
+                          <label className="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={entry.useSharedEndpoint}
+                              onChange={() => toggleUseSharedEndpoint(entry.id)}
+                              className="rounded"
+                            />
+                            Use shared
+                          </label>
+                        </div>
                         <textarea
                           value={entry.endpointInput}
                           onChange={(e) => updateEntry(entry.id, 'endpointInput', e.target.value)}
                           placeholder="Paste output from: show endpoints ip x.x.x.x"
                           className="w-full h-32 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-transparent resize-none font-mono text-xs"
+                          disabled={entry.useSharedEndpoint}
                         />
+                        {entry.useSharedEndpoint && (
+                          <p className="text-xs text-blue-600 mt-1">Using shared endpoint data</p>
+                        )}
                       </div>
 
                       <div>

@@ -3,7 +3,8 @@ export interface EndpointData {
   ip: string;
   paths: string[];
   pod: string;
-  pathsWithNodes?: Map<string, string>; // path -> node mapping
+  pathsWithNodes?: Map<string, string>;
+  pathsWithIPs?: Map<string, string>;
 }
 
 export interface PathAttachment {
