@@ -78,12 +78,18 @@ export default function MatrixTable({ allEntries, pathAttachments }: MatrixTable
     if (!matrixRef.current) return;
 
     try {
-      const canvas = await html2canvas(matrixRef.current, {
+      const scrollContainer = matrixRef.current;
+      const table = scrollContainer.querySelector('table');
+      if (!table) return;
+
+      const canvas = await html2canvas(table, {
         scale: 2,
         backgroundColor: '#ffffff',
         logging: false,
-        windowWidth: matrixRef.current.scrollWidth,
-        windowHeight: matrixRef.current.scrollHeight
+        windowWidth: table.scrollWidth,
+        windowHeight: table.scrollHeight,
+        useCORS: true,
+        allowTaint: true
       });
 
       canvas.toBlob((blob) => {
@@ -118,13 +124,13 @@ export default function MatrixTable({ allEntries, pathAttachments }: MatrixTable
       </div>
 
       <div ref={matrixRef} className="overflow-x-auto">
-        <table className="w-full border-collapse text-xs">
+        <table className="border-collapse text-xs">
           <thead>
             <tr>
-              <th className="border border-slate-300 bg-slate-100 px-3 py-2 text-left font-semibold sticky left-0 z-10 min-w-[120px]">
+              <th className="border border-slate-300 bg-slate-100 px-3 py-2 text-left font-semibold w-[120px]">
                 IP
               </th>
-              <th className="border border-slate-300 bg-slate-100 px-3 py-2 text-left font-semibold sticky left-[120px] z-10 min-w-[100px] bg-slate-100">
+              <th className="border border-slate-300 bg-slate-100 px-3 py-2 text-left font-semibold w-[100px]">
                 Interface
               </th>
               {allVlans.map(vlan => (
@@ -137,10 +143,10 @@ export default function MatrixTable({ allEntries, pathAttachments }: MatrixTable
           <tbody>
             {pathRows.map((row, idx) => (
               <tr key={idx} className="hover:bg-slate-50">
-                <td className="border border-slate-300 px-3 py-2 text-xs bg-white sticky left-0 z-10">
+                <td className="border border-slate-300 px-3 py-2 text-xs bg-white w-[120px]">
                   {row.ip || '-'}
                 </td>
-                <td className="border border-slate-300 px-3 py-2 font-mono text-xs bg-white sticky left-[120px] z-10">
+                <td className="border border-slate-300 px-3 py-2 font-mono text-xs bg-white w-[100px]">
                   {row.interface}
                 </td>
                 {allVlans.map(vlan => {
